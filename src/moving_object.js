@@ -13,8 +13,8 @@ function MovingObject(options) {
 const NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 
 MovingObject.prototype.draw = function (ctx) {
-    let image = this.getImage();
-    ctx.drawImage(image, this.pos[0], this.pos[1], this.width, this.height);
+
+    ctx.drawImage(this.image, this.pos[0], this.pos[1], this.width, this.height);
 };
 
 MovingObject.prototype.move = function (timeDelta) {
@@ -82,8 +82,5 @@ MovingObject.prototype.stop = function () {
     this.vel = [0, 0];
 }
 
-MovingObject.prototype.getImage = function () {
-    return this.image;
-}
 
 module.exports = MovingObject;

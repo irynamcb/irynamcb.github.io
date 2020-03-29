@@ -8,15 +8,12 @@ Animate.RADIUS = 0;
 
 function Animate(options, imageName, animationLength) {
 
-    this.frame = -1;
+    this.frame = 0;
     this.animationLength = animationLength;
-    this.imageName = imageName;
-    this.animations = [];    
-    for (let i = 0; i < animationLength; i++) {
-        let animation = new Image ();
-        animation.src = this.frameName(i);
-        this.animations.push(animation);
-    }
+    this.animation = new Image ();
+    this.animation.src = `./images/${imageName}.png`;
+    this.animationWidth = 12768 / animationLength;
+    this.animationHeight = 258;
 
 
     let moOptions = {
@@ -31,17 +28,16 @@ function Animate(options, imageName, animationLength) {
 
 }
 
-Animate.prototype.frameName = function (frame) {
-    let s = '000' + frame;
-    s = s.substr(s.length - 3);
-    return `./images/${this.imageName}${s}.png`
+
+Animate.prototype.draw = function (ctx) {
+    // debugger
+   ctx.drawImage(this.animation, this.frame * this.animationWidth, 0, this.animationWidth, this.animationHeight, this.pos[0], this.pos[1], this.width, this.height);
+   this.frame += 1;
+   if (this.frame > this.animationLength) {
+        this.game.remove(this);
+   }
 }
 
-Animate.prototype.getImage = function () {
-    // debugger
-    this.frame = (this.frame + 1) % this.animationLength;
-    return this.animations[this.frame];
-}
 
 
 
