@@ -8,15 +8,19 @@ Animate.RADIUS = 0;
 
 function Animate(options, imageName, animationLength) {
 
-    this.animateImage = new Image();
-    this.frame = 0;
+    this.frame = -1;
     this.animationLength = animationLength;
     this.imageName = imageName;
-    this.animateImage.src = this.frameName(this.frame);
+    this.animations = [];    
+    for (let i = 0; i < animationLength; i++) {
+        let animation = new Image ();
+        animation.src = this.frameName(i);
+        this.animations.push(animation);
+    }
+
 
     let moOptions = {
         pos: options.pos,
-        image: this.animateImage,
         width: options.width,
         height: options.height,
         radius: Animate.RADIUS,
@@ -33,15 +37,10 @@ Animate.prototype.frameName = function (frame) {
     return `./images/${this.imageName}${s}.png`
 }
 
-Animate.prototype.animate = function (timeDelta) {
+Animate.prototype.getImage = function () {
     // debugger
-    this.frame += 1;
-    if (this.frame < this.animationLength) {
-        this.animateImage.src = this.frameName(this.frame);
-    } else {
-        this.game.remove(this);
-    }
-   
+    this.frame = (this.frame + 1) % this.animationLength;
+    return this.animations[this.frame];
 }
 
 
