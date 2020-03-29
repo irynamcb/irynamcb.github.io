@@ -14,6 +14,7 @@ function Animate(options, imageName, animationLength) {
     this.animation.src = `./images/${imageName}.png`;
     this.animationWidth = 12768 / animationLength;
     this.animationHeight = 258;
+    
 
 
     let moOptions = {
@@ -21,7 +22,7 @@ function Animate(options, imageName, animationLength) {
         width: options.width,
         height: options.height,
         radius: Animate.RADIUS,
-        vel: [0, 0],
+        vel: options.vel,
         game: options.game
     }
     MovingObject.call(this, moOptions);
